@@ -1,0 +1,41 @@
+{
+  "expo": {
+    "name": "Walk2Point",
+    "slug": "walk2point",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "dark",
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.poteeeet.walk2point",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSHealthShareUsageDescription": "このアプリは歩数データを取得してポイントを付与するために使用します。",
+        "NSHealthUpdateUsageDescription": "このアプリは歩数データを更新するために使用します。"
+      },
+      "entitlements": {
+        "com.apple.developer.healthkit": true
+      }
+    },
+    "android": {
+      "package": "com.poteeeet.walk2point",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.ACTIVITY_RECOGNITION",
+        "android.permission.BODY_SENSORS"
+      ]
+    },
+    "web": {
+    },
+    "plugins": [
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "walk2point-project-id"
+      }
+    }
+  }
+}
