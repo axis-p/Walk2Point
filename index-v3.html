@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="ja" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Walk2Point v3 - 歩いて世界旅行する健康アプリ</title>
+    <meta name="description" content="歩数で世界を旅行し、各地の名所到達でポイント獲得。バーチャル旅行で楽しく健康管理">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .gradient-text {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .travel-gradient {
+            background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .feature-card {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            transition: transform 0.3s ease;
+        }
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        .phone-mockup {
+            width: 300px;
+            height: 620px;
+            background: #1f2937;
+            border-radius: 35px;
+            border: 10px solid #374151;
+            position: relative;
+            overflow: hidden;
+        }
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 260px;
+                height: 540px;
+                border: 8px solid #374151;
+            }
+        }
+        .phone-screen {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .app-screen {
+            display: none;
+            width: 100%;
+            height: 100%;
+            padding: 25px;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .app-screen.active {
+            display: block;
+        }
+        .travel-map {
+            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .destination-icon {
+            font-size: 32px;
+            animation: travelPulse 2s ease-in-out infinite;
+        }
+        @keyframes travelPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+        .status-bar {
+            height: 35px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 25px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        .bottom-nav {
+            position: absolute;
+            bottom: 25px;
+            left: 25px;
+            right: 25px;
+            height: 65px;
+            background: rgba(55, 65, 81, 0.95);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            backdrop-filter: blur(15px);
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: #9ca3af;
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 8px;
+            border-radius: 12px;
+        }
+        .nav-item.active {
+            color: #3b82f6;
+            background: rgba(59, 130, 246, 0.1);
+        }
+        .nav-item i {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .nav-item span {
+            font-size: 11px;
+            font-weight: 500;
+        }
+        .ecosystem-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px 0;
+        }
+        .flow-item {
+            background: linear-gradient(135deg, #374151 0%, #1f2937 100%);
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            flex: 1;
+            min-width: 280px;
+            position: relative;
+        }
+        @media (max-width: 768px) {
+            .flow-item {
+                min-width: 100%;
+                padding: 16px;
+            }
+        }
+        .flow-arrow {
+            font-size: 24px;
+            color: #3b82f6;
+            animation: flowPulse 2s infinite;
+        }
+        @keyframes flowPulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+        .travel-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .progress-bar {
+            background: #374151;
+            border-radius: 10px;
+            overflow: hidden;
+            height: 8px;
+            position: relative;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.3s ease;
+        }
+        .distance-fill { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+        .country-fill { background: linear-gradient(90deg, #10b981, #34d399); }
+        .landmark-fill { background: linear-gradient(90deg, #f59e0b, #fbbf24); }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-gray-800/90 backdrop-blur-sm z-50 border-b border-gray-700">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex justify-between items-center">
+                <h1 class="text-xl md:text-2xl font-bold gradient-text">Walk2Point v3</h1>
+                <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                    <a href="#concept" class="hover:text-blue-400 transition text-sm lg:text-base">コンセプト</a>
+                    <a href="#journey" class="hover:text-blue-400 transition text-sm lg:text-base">旅行システム</a>
+                    <a href="#features" class="hover:text-blue-400 transition text-sm lg:text-base">機能</a>
+                    <a href="#app-demo" class="hover:text-blue-400 transition text-sm lg:text-base">アプリデモ</a>
+                    <a href="#business" class="hover:text-blue-400 transition text-sm lg:text-base">ビジネスモデル</a>
+                    <a href="#implementation" class="hover:text-blue-400 transition text-sm lg:text-base">実装計画</a>
+                    <a href="index.html" class="bg-gradient-to-r from-gray-600 to-gray-700 px-3 lg:px-4 py-2 rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 text-sm lg:text-base">📊 従来版</a>
+                </div>
+                <div class="flex md:hidden items-center space-x-2">
+                    <a href="index.html" class="bg-gradient-to-r from-gray-600 to-gray-700 px-3 py-2 rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 text-sm">📊</a>
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700">
+            <div class="container mx-auto px-4 py-4 space-y-3">
+                <a href="#concept" class="block hover:text-blue-400 transition py-2">コンセプト</a>
+                <a href="#journey" class="block hover:text-blue-400 transition py-2">旅行システム</a>
+                <a href="#features" class="block hover:text-blue-400 transition py-2">機能</a>
+                <a href="#app-demo" class="block hover:text-blue-400 transition py-2">アプリデモ</a>
+                <a href="#business" class="block hover:text-blue-400 transition py-2">ビジネスモデル</a>
+                <a href="#implementation" class="block hover:text-blue-400 transition py-2">実装計画</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="pt-24 pb-12 px-4">
+        <div class="container mx-auto text-center">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">
+                <span class="gradient-text">Walk2Point</span>
+                <span class="block text-lg md:text-2xl font-normal mt-2 text-gray-400">Version 3.0</span>
+            </h2>
+            <p class="text-xl md:text-2xl mb-4">
+                <span class="travel-gradient font-semibold">歩いて世界旅行</span>
+                <span class="text-gray-300">ポイントで冒険</span>
+            </p>
+            <p class="text-base md:text-lg text-gray-400 mb-10 px-4">バーチャル旅行で楽しく健康管理 - 歩数で世界の名所を巡ろう</p>
+
+            <!-- Key Features -->
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 flex-wrap gap-4">
+                <div class="bg-gradient-to-r from-blue-600 to-cyan-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-globe-americas text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">世界旅行</span>
+                </div>
+                <div class="bg-gradient-to-r from-green-600 to-teal-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-map-marker-alt text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">名所巡り</span>
+                </div>
+                <div class="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-coins text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">冒険報酬</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Concept Section -->
+    <section id="concept" class="py-12 md:py-16 px-4 bg-gray-800/50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center px-4">革新的コンセプト</h2>
+
+            <!-- Before vs After -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16">
+                <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
+                    <h3 class="text-2xl font-semibold mb-6 text-red-400">従来の歩数アプリ</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-times text-red-400 mr-3"></i>
+                            <span class="text-gray-300">単調な歩数カウント</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-times text-red-400 mr-3"></i>
+                            <span class="text-gray-300">目標達成の実感薄い</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-times text-red-400 mr-3"></i>
+                            <span class="text-gray-300">継続のモチベーション不足</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-times text-red-400 mr-3"></i>
+                            <span class="text-gray-300">歩くことの意味を感じにくい</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-900 to-cyan-900 rounded-2xl p-8 border border-blue-500">
+                    <h3 class="text-2xl font-semibold mb-6 text-blue-300">Walk2Point v3</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span class="text-gray-100">「今日は富士山を登った！」</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span class="text-gray-100">各国の名所で特別報酬</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span class="text-gray-100">「次はパリのエッフェル塔！」</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-check text-green-400 mr-3"></i>
+                            <span class="text-gray-100">旅行への憧れが継続動機</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Core Philosophy -->
+            <div class="bg-gradient-to-r from-blue-900/50 to-cyan-900/50 rounded-2xl p-8 md:p-12 border border-blue-500/30">
+                <h3 class="text-2xl md:text-3xl font-bold mb-6 text-center text-blue-300">コアフィロソフィー</h3>
+                <div class="text-center max-w-4xl mx-auto">
+                    <p class="text-xl md:text-2xl mb-6 leading-relaxed">
+                        <span class="text-blue-400 font-semibold">「歩数」</span> →
+                        <span class="text-cyan-400 font-semibold">「世界旅行の距離」</span> →
+                        <span class="text-green-400 font-semibold">「冒険の報酬」</span>
+                    </p>
+                    <p class="text-lg text-gray-300 leading-relaxed">
+                        毎日の歩数を「世界を旅する距離」として可視化。<br>
+                        東京から始まって、大阪、京都、富士山、そして海外へ。<br>
+                        <strong class="text-blue-400">歩くことに冒険と発見の意味を与える</strong>革新的アプローチです。
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Journey System Section -->
+    <section id="journey" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">🗺️ バーチャル旅行システム</h2>
+
+            <!-- Journey Flow -->
+            <div class="ecosystem-flow">
+                <div class="flow-item">
+                    <i class="fas fa-walking text-4xl text-blue-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">歩数計測</h3>
+                    <p class="text-gray-300">1,000歩 = 1km<br>世界旅行距離に変換</p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-item">
+                    <i class="fas fa-route text-4xl text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">ルート進行</h3>
+                    <p class="text-gray-300">リアルな地図で<br>目的地へ向けて前進</p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-item">
+                    <i class="fas fa-flag text-4xl text-yellow-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">名所到達</h3>
+                    <p class="text-gray-300">観光地でボーナス<br>ポイント獲得</p>
+                </div>
+
+                <div class="flow-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div class="flow-item">
+                    <i class="fas fa-coins text-4xl text-purple-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-3">冒険報酬</h3>
+                    <p class="text-gray-300">地域限定広告視聴で<br>追加ポイント獲得</p>
+                </div>
+            </div>
+
+            <!-- Travel Routes -->
+            <div class="grid md:grid-cols-3 gap-8 mt-16">
+                <div class="bg-gradient-to-br from-red-900/30 to-pink-900/30 rounded-xl p-6 border border-red-500/30">
+                    <h3 class="text-xl font-bold mb-4 text-red-400">🗾 日本縦断ルート</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>東京スカイツリー</span>
+                            <span class="text-green-400">100P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>富士山頂上</span>
+                            <span class="text-green-400">500P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>大阪城</span>
+                            <span class="text-green-400">200P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>京都金閣寺</span>
+                            <span class="text-green-400">300P</span>
+                        </div>
+                        <div class="text-sm text-gray-400 mt-4">
+                            総距離: 約1,200km<br>
+                            必要歩数: 120万歩
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-blue-900/30 to-cyan-900/30 rounded-xl p-6 border border-blue-500/30">
+                    <h3 class="text-xl font-bold mb-4 text-blue-400">🌍 アジア横断ルート</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>ソウルタワー</span>
+                            <span class="text-green-400">400P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>万里の長城</span>
+                            <span class="text-green-400">800P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>タージマハル</span>
+                            <span class="text-green-400">1,000P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>アンコールワット</span>
+                            <span class="text-green-400">600P</span>
+                        </div>
+                        <div class="text-sm text-gray-400 mt-4">
+                            総距離: 約8,000km<br>
+                            必要歩数: 800万歩
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-900/30 to-indigo-900/30 rounded-xl p-6 border border-purple-500/30">
+                    <h3 class="text-xl font-bold mb-4 text-purple-400">🏰 ヨーロッパ周遊</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between">
+                            <span>エッフェル塔</span>
+                            <span class="text-green-400">1,200P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>コロッセオ</span>
+                            <span class="text-green-400">1,000P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>サグラダファミリア</span>
+                            <span class="text-green-400">800P</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span>ビッグベン</span>
+                            <span class="text-green-400">900P</span>
+                        </div>
+                        <div class="text-sm text-gray-400 mt-4">
+                            総距離: 約12,000km<br>
+                            必要歩数: 1,200万歩
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 px-4 bg-gray-800/50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">🚀 主要機能</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-blue-400">
+                        <i class="fas fa-map-marked-alt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">リアル地図連携</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• Google Maps API活用</li>
+                        <li>• 実際のルートと距離</li>
+                        <li>• 地形・高度情報表示</li>
+                        <li>• 天候連動システム</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-green-400">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">名所フォトコレクション</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• 到達時の記念撮影機能</li>
+                        <li>• ARフィルターで現地体験</li>
+                        <li>• SNS共有機能</li>
+                        <li>• 旅行記録の自動作成</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-yellow-400">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">地域限定特典</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• 現地企業の広告連携</li>
+                        <li>• 観光地の特別情報</li>
+                        <li>• 地域グルメクーポン</li>
+                        <li>• 限定バッジコレクション</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-purple-400">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">旅行仲間システム</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• 友達と同じルートを旅行</li>
+                        <li>• グループチャレンジ</li>
+                        <li>• 到達地点の共有</li>
+                        <li>• 旅行記録の比較</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-cyan-400">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">文化学習機能</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• 各地の歴史・文化紹介</li>
+                        <li>• 現地語の基本フレーズ</li>
+                        <li>• 名所の詳細解説</li>
+                        <li>• クイズで知識定着</li>
+                    </ul>
+                </div>
+
+                <div class="feature-card rounded-xl p-6">
+                    <div class="text-3xl mb-4 text-red-400">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">旅行統計分析</h3>
+                    <ul class="text-gray-400 space-y-2">
+                        <li>• 月間旅行距離レポート</li>
+                        <li>• 訪問国数・都市数統計</li>
+                        <li>• 歩数効率分析</li>
+                        <li>• 健康改善トラッキング</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- App Demo Section -->
+    <section id="app-demo" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">📱 アプリデモ</h2>
+
+            <div class="flex justify-center px-4">
+                <div class="phone-mockup">
+                    <div class="phone-screen">
+                        <!-- Status Bar -->
+                        <div class="status-bar text-white">
+                            <span>9:41</span>
+                            <span>🔋 98%</span>
+                        </div>
+
+                        <!-- Travel Dashboard Screen -->
+                        <div class="app-screen active" id="travel-dashboard">
+                            <div class="text-center mb-4">
+                                <h2 class="text-xl font-bold text-white mb-2">🗺️ 現在の旅路</h2>
+                                <div class="text-sm text-gray-300">東京 → 大阪ルート</div>
+                            </div>
+
+                            <!-- Current Journey -->
+                            <div class="travel-map">
+                                <div class="flex justify-between items-center mb-4">
+                                    <div class="destination-icon">🗼</div>
+                                    <div class="text-center flex-1">
+                                        <div class="text-xs text-gray-200">進行度 65%</div>
+                                        <div class="progress-bar mt-1">
+                                            <div class="progress-fill distance-fill" style="width: 65%"></div>
+                                        </div>
+                                    </div>
+                                    <div class="destination-icon">🏯</div>
+                                </div>
+
+                                <div class="text-center">
+                                    <div class="text-lg font-bold text-white">あと 142km で大阪城！</div>
+                                    <div class="text-sm text-blue-200">残り約14万歩</div>
+                                </div>
+                            </div>
+
+                            <!-- Daily Stats -->
+                            <div class="travel-stats">
+                                <div class="bg-gray-700 rounded-lg p-3">
+                                    <div class="text-xs text-gray-400">今日の歩数</div>
+                                    <div class="text-lg font-bold text-white">8,450歩</div>
+                                    <div class="text-xs text-blue-400">8.45km 旅行</div>
+                                </div>
+                                <div class="bg-gray-700 rounded-lg p-3">
+                                    <div class="text-xs text-gray-400">今日のポイント</div>
+                                    <div class="text-lg font-bold text-yellow-400">12P</div>
+                                    <div class="text-xs text-green-400">+3P 広告視聴</div>
+                                </div>
+                            </div>
+
+                            <!-- Next Landmarks -->
+                            <div class="bg-gray-700 rounded-lg p-4 mt-4">
+                                <div class="text-sm font-semibold text-white mb-3">🎯 次の目標地点</div>
+                                <div class="space-y-2">
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-300">🗻 富士山五合目</span>
+                                        <span class="text-xs text-blue-400">45km先</span>
+                                    </div>
+                                    <div class="flex justify-between items-center">
+                                        <span class="text-sm text-gray-300">🏯 大阪城</span>
+                                        <span class="text-xs text-blue-400">142km先</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Action Button -->
+                            <div class="text-center mt-4">
+                                <button class="bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-6 py-2 rounded-lg text-sm font-semibold">
+                                    📺 旅行広告を見てポイント獲得
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Navigation -->
+                        <div class="bottom-nav">
+                            <div class="nav-item active" onclick="showTravelScreen('travel-dashboard', this)">
+                                <i class="fas fa-map"></i>
+                                <span>旅路</span>
+                            </div>
+                            <div class="nav-item" onclick="showTravelScreen('landmarks-screen', this)">
+                                <i class="fas fa-flag"></i>
+                                <span>名所</span>
+                            </div>
+                            <div class="nav-item" onclick="showTravelScreen('collection-screen', this)">
+                                <i class="fas fa-camera"></i>
+                                <span>コレクション</span>
+                            </div>
+                            <div class="nav-item" onclick="showTravelScreen('profile-screen', this)">
+                                <i class="fas fa-user"></i>
+                                <span>記録</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Business Model Section -->
+    <section id="business" class="py-16 px-4 bg-gray-800/50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">💼 ビジネスモデル</h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Revenue Model -->
+                <div class="bg-gradient-to-br from-green-900/30 to-emerald-900/30 rounded-xl p-8 border border-green-500/30">
+                    <h3 class="text-2xl font-bold mb-6 text-green-400">💰 収益モデル</h3>
+                    <div class="space-y-4">
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">地域限定広告収入</span>
+                            <span class="font-semibold text-green-400">60%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">観光協会パートナーシップ</span>
+                            <span class="font-semibold text-green-400">25%</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-gray-300">プレミアム機能</span>
+                            <span class="font-semibold text-green-400">15%</span>
+                        </div>
+
+                        <div class="mt-6 p-4 bg-green-900/20 rounded-lg">
+                            <div class="text-sm text-green-300 mb-2">特徴的な収益源</div>
+                            <ul class="text-sm text-gray-300 space-y-1">
+                                <li>• 現地観光局からのプロモーション料</li>
+                                <li>• 航空会社・ホテルの広告収入</li>
+                                <li>• 旅行関連商品のアフィリエイト</li>
+                                <li>• 名所到達証明NFTの販売</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Value -->
+                <div class="bg-gradient-to-br from-blue-900/30 to-cyan-900/30 rounded-xl p-8 border border-blue-500/30">
+                    <h3 class="text-2xl font-bold mb-6 text-blue-400">🎁 ユーザー価値</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <i class="fas fa-plane text-blue-400 mr-3 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-gray-200">旅行への憧れ充足</div>
+                                <div class="text-sm text-gray-400">実際の旅行気分を毎日体験</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-trophy text-yellow-400 mr-3 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-gray-200">達成感の可視化</div>
+                                <div class="text-sm text-gray-400">「富士山を登った」という実感</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-graduation-cap text-green-400 mr-3 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-gray-200">文化学習機会</div>
+                                <div class="text-sm text-gray-400">各地の歴史・文化を自然に学習</div>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <i class="fas fa-coins text-purple-400 mr-3 mt-1"></i>
+                            <div>
+                                <div class="font-semibold text-gray-200">高額報酬システム</div>
+                                <div class="text-sm text-gray-400">名所到達で特別ボーナス</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Potential -->
+            <div class="mt-12 bg-gradient-to-r from-purple-900/30 to-indigo-900/30 rounded-xl p-8 border border-purple-500/30">
+                <h3 class="text-2xl font-bold mb-6 text-center text-purple-400">📊 市場ポテンシャル</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-blue-400 mb-2">2,500万人</div>
+                        <div class="text-sm text-gray-400">年間海外旅行希望者数</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-green-400 mb-2">15兆円</div>
+                        <div class="text-sm text-gray-400">国内観光市場規模</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-yellow-400 mb-2">85%</div>
+                        <div class="text-sm text-gray-400">バーチャル旅行関心層</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Implementation Section -->
+    <section id="implementation" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">🚀 実装計画</h2>
+
+            <div class="space-y-8">
+                <!-- Phase 1 -->
+                <div class="bg-gradient-to-r from-blue-900/20 to-cyan-900/20 rounded-xl p-8 border border-blue-500/30">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-blue-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mr-4">1</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-blue-400">Phase 1: 基本旅行システム (0-4ヶ月)</h3>
+                            <p class="text-gray-400">日本国内ルート + 基本機能</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">🎯 開発目標</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• 歩数→距離変換システム</li>
+                                <li>• 日本縦断ルート(東京→沖縄)</li>
+                                <li>• 主要観光地20箇所設定</li>
+                                <li>• 基本的なポイントシステム</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">📈 成功指標</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• DAU: 1,000人</li>
+                                <li>• 30日継続率: 40%</li>
+                                <li>• 平均セッション: 5分</li>
+                                <li>• App Store評価: 4.0+</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 2 -->
+                <div class="bg-gradient-to-r from-green-900/20 to-emerald-900/20 rounded-xl p-8 border border-green-500/30">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-green-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mr-4">2</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-green-400">Phase 2: 国際展開 (4-8ヶ月)</h3>
+                            <p class="text-gray-400">アジア・ヨーロッパルート + 高度機能</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">🌍 機能拡張</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• 世界5大陸ルート追加</li>
+                                <li>• AR撮影機能実装</li>
+                                <li>• 多言語対応</li>
+                                <li>• 地域限定広告システム</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">📊 目標拡大</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• DAU: 5,000人</li>
+                                <li>• 30日継続率: 60%</li>
+                                <li>• 月間収益: 50万円</li>
+                                <li>• 海外展開準備完了</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Phase 3 -->
+                <div class="bg-gradient-to-r from-purple-900/20 to-indigo-900/20 rounded-xl p-8 border border-purple-500/30">
+                    <div class="flex items-center mb-6">
+                        <div class="bg-purple-600 text-white w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl mr-4">3</div>
+                        <div>
+                            <h3 class="text-2xl font-bold text-purple-400">Phase 3: エコシステム完成 (8-12ヶ月)</h3>
+                            <p class="text-gray-400">プラットフォーム化 + 収益最大化</p>
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">🚀 最終機能</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• AIによる個人ルート提案</li>
+                                <li>• NFT記念品システム</li>
+                                <li>• 観光局公式パートナーシップ</li>
+                                <li>• リアル旅行予約連携</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold text-white mb-3">💎 事業目標</h4>
+                            <ul class="space-y-2 text-gray-300 text-sm">
+                                <li>• DAU: 20,000人</li>
+                                <li>• 月間収益: 300万円</li>
+                                <li>• B2B契約: 50社</li>
+                                <li>• IPO準備開始</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800/80 backdrop-blur-sm py-8 px-4 border-t border-gray-700">
+        <div class="container mx-auto text-center text-gray-400">
+            <p>&copy; 2025 Walk2Point v3. All rights reserved.</p>
+            <p class="mt-2 text-sm">Virtual Travel Experience for Health & Adventure</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Close mobile menu when clicking on links
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+        });
+
+        // Travel app screen switching
+        function showTravelScreen(screenId, navItem) {
+            // Hide all screens
+            const screens = document.querySelectorAll('.app-screen');
+            screens.forEach(screen => screen.classList.remove('active'));
+
+            // Show selected screen
+            document.getElementById(screenId).classList.add('active');
+
+            // Update nav item styles
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            navItem.classList.add('active');
+        }
+
+        // Smooth scroll for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add animation on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('section').forEach(section => {
+            section.style.opacity = '0';
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+            observer.observe(section);
+        });
+
+        // Travel animation enhancements
+        document.addEventListener('DOMContentLoaded', function() {
+            // Simulate distance progress
+            setInterval(() => {
+                const progressBar = document.querySelector('.distance-fill');
+                if (progressBar) {
+                    let currentWidth = parseInt(progressBar.style.width) || 65;
+                    currentWidth += 0.1;
+                    if (currentWidth > 100) currentWidth = 0;
+                    progressBar.style.width = currentWidth + '%';
+                }
+            }, 5000);
+        });
+    </script>
+</body>
+</html>
