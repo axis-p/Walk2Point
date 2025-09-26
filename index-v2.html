@@ -36,6 +36,13 @@
             position: relative;
             overflow: hidden;
         }
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 260px;
+                height: 540px;
+                border: 8px solid #374151;
+            }
+        }
         .phone-screen {
             width: 100%;
             height: 100%;
@@ -129,8 +136,14 @@
             padding: 20px;
             text-align: center;
             flex: 1;
-            min-width: 200px;
+            min-width: 280px;
             position: relative;
+        }
+        @media (max-width: 768px) {
+            .flow-item {
+                min-width: 100%;
+                padding: 16px;
+            }
         }
         .flow-arrow {
             font-size: 24px;
@@ -169,19 +182,35 @@
     <nav class="fixed top-0 w-full bg-gray-800/90 backdrop-blur-sm z-50 border-b border-gray-700">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold gradient-text">Walk2Point v2</h1>
-                <div class="hidden md:flex space-x-6 items-center">
-                    <a href="#concept" class="hover:text-purple-400 transition">コンセプト</a>
-                    <a href="#ecosystem" class="hover:text-purple-400 transition">エコシステム</a>
-                    <a href="#features" class="hover:text-purple-400 transition">機能</a>
-                    <a href="#app-demo" class="hover:text-purple-400 transition">アプリデモ</a>
-                    <a href="#business" class="hover:text-purple-400 transition">ビジネスモデル</a>
-                    <a href="#implementation" class="hover:text-purple-400 transition">実装計画</a>
-                    <a href="index.html" class="bg-gradient-to-r from-gray-600 to-gray-700 px-4 py-2 rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300">📊 従来版</a>
+                <h1 class="text-xl md:text-2xl font-bold gradient-text">Walk2Point v2</h1>
+                <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                    <a href="#concept" class="hover:text-purple-400 transition text-sm lg:text-base">コンセプト</a>
+                    <a href="#ecosystem" class="hover:text-purple-400 transition text-sm lg:text-base">エコシステム</a>
+                    <a href="#features" class="hover:text-purple-400 transition text-sm lg:text-base">機能</a>
+                    <a href="#app-demo" class="hover:text-purple-400 transition text-sm lg:text-base">アプリデモ</a>
+                    <a href="#business" class="hover:text-purple-400 transition text-sm lg:text-base">ビジネスモデル</a>
+                    <a href="#implementation" class="hover:text-purple-400 transition text-sm lg:text-base">実装計画</a>
+                    <a href="index.html" class="bg-gradient-to-r from-gray-600 to-gray-700 px-3 lg:px-4 py-2 rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 text-sm lg:text-base">📊 従来版</a>
                 </div>
-                <div class="md:hidden">
+                <div class="flex md:hidden items-center space-x-2">
                     <a href="index.html" class="bg-gradient-to-r from-gray-600 to-gray-700 px-3 py-2 rounded-lg hover:from-gray-700 hover:to-gray-800 transition duration-300 text-sm">📊</a>
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
                 </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id=\"mobile-menu\" class=\"md:hidden hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700\">
+            <div class=\"container mx-auto px-4 py-4 space-y-3\">
+                <a href=\"#concept\" class=\"block hover:text-purple-400 transition py-2\">コンセプト</a>
+                <a href=\"#ecosystem\" class=\"block hover:text-purple-400 transition py-2\">エコシステム</a>
+                <a href=\"#features\" class=\"block hover:text-purple-400 transition py-2\">機能</a>
+                <a href=\"#app-demo\" class=\"block hover:text-purple-400 transition py-2\">アプリデモ</a>
+                <a href=\"#business\" class=\"block hover:text-purple-400 transition py-2\">ビジネスモデル</a>
+                <a href=\"#implementation\" class=\"block hover:text-purple-400 transition py-2\">実装計画</a>
             </div>
         </div>
     </nav>
@@ -189,29 +218,29 @@
     <!-- Hero Section -->
     <section class="pt-24 pb-12 px-4">
         <div class="container mx-auto text-center">
-            <h2 class="text-6xl font-bold mb-6">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">
                 <span class="gradient-text">Walk2Point</span>
-                <span class="block text-2xl font-normal mt-2 text-gray-400">Version 2.0</span>
+                <span class="block text-lg md:text-2xl font-normal mt-2 text-gray-400">Version 2.0</span>
             </h2>
-            <p class="text-2xl mb-4">
+            <p class="text-xl md:text-2xl mb-4">
                 <span class="pet-gradient font-semibold">ペットを育てて</span>
                 <span class="text-gray-300">ポイントを稼ぐ</span>
             </p>
-            <p class="text-lg text-gray-400 mb-10">革新的な健康習慣アプリ - 愛着で続く、楽しく稼げる</p>
+            <p class="text-base md:text-lg text-gray-400 mb-10 px-4">革新的な健康習慣アプリ - 愛着で続く、楽しく稼げる</p>
 
             <!-- Key Features -->
-            <div class="flex justify-center space-x-6 flex-wrap gap-4">
-                <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl px-8 py-4">
-                    <i class="fas fa-paw text-2xl mb-2 block"></i>
-                    <span class="font-semibold">ペット育成</span>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 flex-wrap gap-4">
+                <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-paw text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">ペット育成</span>
                 </div>
-                <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl px-8 py-4">
-                    <i class="fas fa-walking text-2xl mb-2 block"></i>
-                    <span class="font-semibold">健康管理</span>
+                <div class="bg-gradient-to-r from-green-600 to-blue-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-walking text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">健康管理</span>
                 </div>
-                <div class="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-xl px-8 py-4">
-                    <i class="fas fa-coins text-2xl mb-2 block"></i>
-                    <span class="font-semibold">ポイント収益</span>
+                <div class="bg-gradient-to-r from-yellow-600 to-orange-600 rounded-xl px-6 md:px-8 py-4">
+                    <i class="fas fa-coins text-xl md:text-2xl mb-2 block"></i>
+                    <span class="font-semibold text-sm md:text-base">ポイント収益</span>
                 </div>
             </div>
         </div>
@@ -220,10 +249,10 @@
     <!-- Concept Section -->
     <section id="concept" class="py-16 px-4 bg-gray-800/50">
         <div class="container mx-auto">
-            <h2 class="text-4xl font-bold mb-12 text-center">革新的コンセプト</h2>
+            <h2 class="text-3xl md:text-4xl font-bold mb-8 md:mb-12 text-center px-4">革新的コンセプト</h2>
 
             <!-- Before vs After -->
-            <div class="grid md:grid-cols-2 gap-12 mb-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 mb-16">
                 <div class="bg-gray-800 rounded-2xl p-8 border border-gray-700">
                     <h3 class="text-2xl font-semibold mb-6 text-red-400">従来の歩数アプリ</h3>
                     <div class="space-y-4">
@@ -1056,6 +1085,26 @@
             section.style.transform = 'translateY(30px)';
             section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(section);
+        });
+
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                // Close mobile menu when clicking on links
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
         });
 
         // Pet animation enhancements
