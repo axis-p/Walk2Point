@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walk2Point - 歩いてポイントを貯めるフィットネスアプリ</title>
-    <meta name="description" content="日常の歩数をポイントに変換し、Amazonギフト券などのデジタルマネーに換金できるiOSアプリ">
+    <title>Walk2Point - 全バージョン比較・選択ページ</title>
+    <meta name="description" content="Walk2Point の5つの革新的アプローチを比較。従来版、ペット育成、世界旅行、健康投資、街づくりから最適な健康アプリを選択">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -15,108 +15,79 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .feature-card {
+        .version-card {
             background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
-            transition: transform 0.3s ease;
-        }
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-        pre {
-            max-height: 400px;
-            overflow-y: auto;
-        }
-        .tab-content {
-            display: none;
-        }
-        .tab-content.active {
-            display: block;
-        }
-        .phone-mockup {
-            width: 280px;
-            height: 600px;
-            background: #1f2937;
-            border-radius: 30px;
-            border: 8px solid #374151;
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
         }
-        @media (max-width: 768px) {
-            .phone-mockup {
-                width: 240px;
-                height: 520px;
-                border: 6px solid #374151;
-            }
+        .version-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
         }
-        .phone-screen {
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            position: relative;
-            overflow: hidden;
-        }
-        .app-screen {
-            display: none;
-            width: 100%;
-            height: 100%;
-            padding: 20px;
+        .version-card::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-gradient);
         }
-        .app-screen.active {
-            display: block;
+        .v1-accent {
+            --accent-gradient: linear-gradient(90deg, #6366f1, #8b5cf6);
         }
-        .status-bar {
-            height: 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 20px;
-            font-size: 14px;
-            font-weight: 500;
+        .v2-accent {
+            --accent-gradient: linear-gradient(90deg, #ec4899, #f97316);
         }
-        .bottom-nav {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
+        .v3-accent {
+            --accent-gradient: linear-gradient(90deg, #3b82f6, #06b6d4);
+        }
+        .v4-accent {
+            --accent-gradient: linear-gradient(90deg, #10b981, #059669);
+        }
+        .v5-accent {
+            --accent-gradient: linear-gradient(90deg, #f59e0b, #d97706);
+        }
+        .comparison-table {
+            background: linear-gradient(135deg, #1e293b 0%, #334155 100%);
+            border-radius: 20px;
+            overflow: hidden;
+        }
+        .feature-icon {
+            width: 60px;
             height: 60px;
-            background: rgba(55, 65, 81, 0.9);
-            border-radius: 15px;
+            border-radius: 50%;
             display: flex;
             align-items: center;
-            justify-content: space-around;
-            backdrop-filter: blur(10px);
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #9ca3af;
-            cursor: pointer;
-            transition: color 0.3s;
-        }
-        .nav-item.active {
-            color: #8b5cf6;
-        }
-        .nav-item i {
-            font-size: 20px;
-            margin-bottom: 4px;
-        }
-        .nav-item span {
-            font-size: 10px;
-        }
-        .flow-arrow {
+            justify-content: center;
             font-size: 24px;
-            color: #8b5cf6;
-            margin: 0 20px;
-            animation: bounce 2s infinite;
+            margin: 0 auto 16px;
         }
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(0); }
-            40% { transform: translateX(10px); }
-            60% { transform: translateX(5px); }
+        .rating-stars {
+            display: flex;
+            gap: 2px;
+        }
+        .star {
+            color: #fbbf24;
+        }
+        .star-empty {
+            color: #374151;
+        }
+        @media (max-width: 768px) {
+            .version-card {
+                margin-bottom: 20px;
+            }
+        }
+        .animated-bg {
+            background: linear-gradient(-45deg, #1e293b, #374151, #1e293b, #334155);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
     </style>
 </head>
@@ -125,19 +96,15 @@
     <nav class="fixed top-0 w-full bg-gray-800/90 backdrop-blur-sm z-50 border-b border-gray-700">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-xl md:text-2xl font-bold gradient-text">Walk2Point</h1>
+                <h1 class="text-xl md:text-2xl font-bold gradient-text">Walk2Point Overview</h1>
                 <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
-                    <a href="#overview" class="hover:text-purple-400 transition text-sm lg:text-base">概要</a>
-                    <a href="#features" class="hover:text-purple-400 transition text-sm lg:text-base">機能</a>
-                    <a href="#app-design" class="hover:text-purple-400 transition text-sm lg:text-base">アプリ設計</a>
-                    <a href="#tech" class="hover:text-purple-400 transition text-sm lg:text-base">技術仕様</a>
-                    <a href="#revenue" class="hover:text-purple-400 transition text-sm lg:text-base">収益計画</a>
-                    <a href="#roadmap" class="hover:text-purple-400 transition text-sm lg:text-base">ロードマップ</a>
-                    <a href="#database" class="hover:text-purple-400 transition text-sm lg:text-base">DB設計</a>
-                    <a href="index-v2.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 lg:px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm lg:text-base">🐾 ペット版</a>
+                    <a href="#versions" class="hover:text-purple-400 transition text-sm lg:text-base">バージョン比較</a>
+                    <a href="#comparison" class="hover:text-purple-400 transition text-sm lg:text-base">詳細比較表</a>
+                    <a href="#recommendation" class="hover:text-purple-400 transition text-sm lg:text-base">推奨選択</a>
+                    <a href="index.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 lg:px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm lg:text-base">🏠 メイン</a>
                 </div>
                 <div class="flex md:hidden items-center space-x-2">
-                    <a href="index-v2.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm">🐾</a>
+                    <a href="index.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm">🏠</a>
                     <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -147,772 +114,509 @@
             </div>
         </div>
         <!-- Mobile Menu -->
-        <div id=\"mobile-menu\" class=\"md:hidden hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700\">
-            <div class=\"container mx-auto px-4 py-4 space-y-3\">
-                <a href=\"#overview\" class=\"block hover:text-purple-400 transition py-2\">概要</a>
-                <a href=\"#features\" class=\"block hover:text-purple-400 transition py-2\">機能</a>
-                <a href=\"#app-design\" class=\"block hover:text-purple-400 transition py-2\">アプリ設計</a>
-                <a href=\"#tech\" class=\"block hover:text-purple-400 transition py-2\">技術仕様</a>
-                <a href=\"#revenue\" class=\"block hover:text-purple-400 transition py-2\">収益計画</a>
-                <a href=\"#roadmap\" class=\"block hover:text-purple-400 transition py-2\">ロードマップ</a>
-                <a href=\"#database\" class=\"block hover:text-purple-400 transition py-2\">DB設計</a>
+        <div id="mobile-menu" class="md:hidden hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700">
+            <div class="container mx-auto px-4 py-4 space-y-3">
+                <a href="#versions" class="block hover:text-purple-400 transition py-2">バージョン比較</a>
+                <a href="#comparison" class="block hover:text-purple-400 transition py-2">詳細比較表</a>
+                <a href="#recommendation" class="block hover:text-purple-400 transition py-2">推奨選択</a>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section class="pt-24 pb-12 px-4">
+    <section class="pt-24 pb-16 px-4 animated-bg">
         <div class="container mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            <h2 class="text-4xl md:text-6xl font-bold mb-6">
                 <span class="gradient-text">Walk2Point</span>
             </h2>
-            <p class="text-lg md:text-xl text-gray-400 mb-8 px-4">歩いてポイントを貯める、新しいフィットネス体験</p>
-            <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
-                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
-                    <i class="fas fa-walking text-purple-400 mr-2"></i>
-                    iOS専用アプリ
+            <p class="text-xl md:text-2xl mb-4 text-gray-300">
+                5つの革新的アプローチで健康管理を再定義
+            </p>
+            <p class="text-base md:text-lg text-gray-400 mb-10 px-4 max-w-4xl mx-auto">
+                従来のポイントシステムから、ペット育成、世界旅行、投資管理、都市建設まで。<br>
+                あなたに最適な健康習慣アプリを見つけましょう。
+            </p>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                    <div class="text-2xl font-bold text-blue-400">5</div>
+                    <div class="text-sm text-gray-300">異なるアプローチ</div>
                 </div>
-                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
-                    <i class="fas fa-coins text-yellow-400 mr-2"></i>
-                    ポイント換金可能
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                    <div class="text-2xl font-bold text-green-400">100+</div>
+                    <div class="text-sm text-gray-300">独自機能</div>
                 </div>
-                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
-                    <i class="fas fa-chart-line text-green-400 mr-2"></i>
-                    広告収益モデル
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                    <div class="text-2xl font-bold text-yellow-400">∞</div>
+                    <div class="text-sm text-gray-300">継続可能性</div>
+                </div>
+                <div class="bg-white/10 backdrop-blur-sm rounded-lg p-4">
+                    <div class="text-2xl font-bold text-purple-400">1</div>
+                    <div class="text-sm text-gray-300">あなた専用</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Overview Section -->
-    <section id="overview" class="py-12 md:py-16 px-4 bg-gray-800/50">
+    <!-- Versions Overview Section -->
+    <section id="versions" class="py-16 px-4">
         <div class="container mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center px-4">プロジェクト概要</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                <div class="bg-gray-800 rounded-xl p-4 md:p-6">
-                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-purple-400">コンセプト</h3>
-                    <p class="text-sm md:text-base text-gray-300 leading-relaxed">
-                        日常の歩数をポイントに変換し、貯まったポイントをAmazonギフト券などのデジタルマネーに換金できるフィットネス連動型ポイントアプリ。
-                        広告収益をユーザーに還元する持続可能なビジネスモデルを採用。
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">🚀 5つのバージョン比較</h2>
+
+            <!-- Version Cards Grid -->
+            <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-8 mb-16">
+                <!-- Version 1 -->
+                <div class="version-card v1-accent rounded-xl p-8 h-full">
+                    <div class="feature-icon bg-gradient-to-r from-indigo-500 to-purple-600 text-white">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Version 1</h3>
+                    <h4 class="text-lg font-semibold mb-6 text-center text-indigo-400">従来版 - 確実なポイントシステム</h4>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-walking text-indigo-400 w-5 mr-3"></i>
+                            <span class="text-sm">2,000歩 = 1ポイント</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-gift text-green-400 w-5 mr-3"></i>
+                            <span class="text-sm">Amazonギフト券交換</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-mobile-alt text-blue-400 w-5 mr-3"></i>
+                            <span class="text-sm">シンプルなUI/UX</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-chart-line text-purple-400 w-5 mr-3"></i>
+                            <span class="text-sm">詳細な健康データ分析</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">適用ユーザー</div>
+                        <div class="text-sm text-gray-300">シンプル志向、確実性重視、初心者</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">継続率予測</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star-empty"></i>
+                            <i class="fas fa-star star-empty"></i>
+                        </div>
+                    </div>
+
+                    <a href="index.html" class="block w-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 rounded-lg text-center font-semibold hover:from-indigo-700 hover:to-purple-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+
+                <!-- Version 2 -->
+                <div class="version-card v2-accent rounded-xl p-8 h-full">
+                    <div class="feature-icon bg-gradient-to-r from-pink-500 to-orange-500 text-white">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Version 2</h3>
+                    <h4 class="text-lg font-semibold mb-6 text-center text-pink-400">ペット育成 - 愛着で続ける</h4>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-heart text-pink-400 w-5 mr-3"></i>
+                            <span class="text-sm">歩数でペットの健康管理</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-coins text-yellow-400 w-5 mr-3"></i>
+                            <span class="text-sm">ペットが自動でポイント生成</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-tv text-blue-400 w-5 mr-3"></i>
+                            <span class="text-sm">広告視聴でエサ獲得</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-smile text-orange-400 w-5 mr-3"></i>
+                            <span class="text-sm">感情的な継続動機</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">適用ユーザー</div>
+                        <div class="text-sm text-gray-300">癒し志向、ゲーム好き、感情重視</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">継続率予測</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                        </div>
+                    </div>
+
+                    <a href="index-v2.html" class="block w-full bg-gradient-to-r from-pink-600 to-orange-600 text-white py-3 rounded-lg text-center font-semibold hover:from-pink-700 hover:to-orange-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+
+                <!-- Version 3 -->
+                <div class="version-card v3-accent rounded-xl p-8 h-full">
+                    <div class="feature-icon bg-gradient-to-r from-blue-500 to-cyan-500 text-white">
+                        <i class="fas fa-globe-americas"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Version 3</h3>
+                    <h4 class="text-lg font-semibold mb-6 text-center text-blue-400">世界旅行 - 冒険で稼ぐ</h4>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-map-marked-alt text-blue-400 w-5 mr-3"></i>
+                            <span class="text-sm">1,000歩 = 1km世界旅行</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-flag text-green-400 w-5 mr-3"></i>
+                            <span class="text-sm">名所到達でボーナス</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-camera text-purple-400 w-5 mr-3"></i>
+                            <span class="text-sm">ARフォトコレクション</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-graduation-cap text-cyan-400 w-5 mr-3"></i>
+                            <span class="text-sm">文化学習機能</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">適用ユーザー</div>
+                        <div class="text-sm text-gray-300">旅行好き、学習意欲、冒険志向</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">継続率予測</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star-empty"></i>
+                        </div>
+                    </div>
+
+                    <a href="index-v3.html" class="block w-full bg-gradient-to-r from-blue-600 to-cyan-600 text-white py-3 rounded-lg text-center font-semibold hover:from-blue-700 hover:to-cyan-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+
+                <!-- Version 4 -->
+                <div class="version-card v4-accent rounded-xl p-8 h-full md:col-span-1 xl:col-span-1">
+                    <div class="feature-icon bg-gradient-to-r from-green-500 to-emerald-500 text-white">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Version 4</h3>
+                    <h4 class="text-lg font-semibold mb-6 text-center text-green-400">健康投資 - 資産で稼ぐ</h4>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-chart-pie text-green-400 w-5 mr-3"></i>
+                            <span class="text-sm">健康をポートフォリオ管理</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-percentage text-yellow-400 w-5 mr-3"></i>
+                            <span class="text-sm">レベル向上で配当率UP</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-robot text-blue-400 w-5 mr-3"></i>
+                            <span class="text-sm">AI投資アドバイザー</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-shield-alt text-cyan-400 w-5 mr-3"></i>
+                            <span class="text-sm">健康保険システム</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">適用ユーザー</div>
+                        <div class="text-sm text-gray-300">投資経験者、分析好き、大人向け</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">継続率予測</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star-empty"></i>
+                        </div>
+                    </div>
+
+                    <a href="index-v4.html" class="block w-full bg-gradient-to-r from-green-600 to-emerald-600 text-white py-3 rounded-lg text-center font-semibold hover:from-green-700 hover:to-emerald-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+
+                <!-- Version 5 -->
+                <div class="version-card v5-accent rounded-xl p-8 h-full md:col-span-1 xl:col-span-1">
+                    <div class="feature-icon bg-gradient-to-r from-amber-500 to-orange-500 text-white">
+                        <i class="fas fa-city"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-4 text-center">Version 5</h3>
+                    <h4 class="text-lg font-semibold mb-6 text-center text-amber-400">街づくり - 創造で稼ぐ</h4>
+
+                    <div class="space-y-4 mb-6">
+                        <div class="flex items-center">
+                            <i class="fas fa-hammer text-amber-400 w-5 mr-3"></i>
+                            <span class="text-sm">歩数で建設資源獲得</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-building text-blue-400 w-5 mr-3"></i>
+                            <span class="text-sm">理想都市を建設・発展</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-green-400 w-5 mr-3"></i>
+                            <span class="text-sm">住民システム・満足度</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-handshake text-purple-400 w-5 mr-3"></i>
+                            <span class="text-sm">都市交流・コンペ参加</span>
+                        </div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">適用ユーザー</div>
+                        <div class="text-sm text-gray-300">創造志向、経営好き、長期視点</div>
+                    </div>
+
+                    <div class="mb-6">
+                        <div class="text-sm text-gray-400 mb-2">継続率予測</div>
+                        <div class="rating-stars">
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star"></i>
+                            <i class="fas fa-star star-empty"></i>
+                        </div>
+                    </div>
+
+                    <a href="index-v5.html" class="block w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 rounded-lg text-center font-semibold hover:from-amber-700 hover:to-orange-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Detailed Comparison Section -->
+    <section id="comparison" class="py-16 px-4 bg-gray-800/50">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">📊 詳細比較表</h2>
+
+            <div class="comparison-table p-8">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-sm">
+                        <thead>
+                            <tr class="border-b border-gray-600">
+                                <th class="text-left py-4 px-4 text-gray-300">比較項目</th>
+                                <th class="text-center py-4 px-4 text-indigo-400">v1 従来版</th>
+                                <th class="text-center py-4 px-4 text-pink-400">v2 ペット版</th>
+                                <th class="text-center py-4 px-4 text-blue-400">v3 旅行版</th>
+                                <th class="text-center py-4 px-4 text-green-400">v4 投資版</th>
+                                <th class="text-center py-4 px-4 text-amber-400">v5 街づくり版</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-gray-300">
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">開発難易度</td>
+                                <td class="text-center py-4 px-4">⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">継続率予測</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">差別化度</td>
+                                <td class="text-center py-4 px-4">⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">収益性</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">ターゲット幅</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">スケール性</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐⭐</td>
+                                <td class="text-center py-4 px-4">⭐⭐⭐⭐</td>
+                            </tr>
+                            <tr class="border-b border-gray-700/50">
+                                <td class="py-4 px-4 font-semibold">心理的魅力</td>
+                                <td class="text-center py-4 px-4 text-indigo-400">確実性</td>
+                                <td class="text-center py-4 px-4 text-pink-400">愛着形成</td>
+                                <td class="text-center py-4 px-4 text-blue-400">憧れ充足</td>
+                                <td class="text-center py-4 px-4 text-green-400">投資思考</td>
+                                <td class="text-center py-4 px-4 text-amber-400">創造実感</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 px-4 font-semibold">推奨ユーザー</td>
+                                <td class="text-center py-4 px-4">全年齢<br>初心者</td>
+                                <td class="text-center py-4 px-4">20-40代<br>ゲーム好き</td>
+                                <td class="text-center py-4 px-4">25-45代<br>旅行好き</td>
+                                <td class="text-center py-4 px-4">30-50代<br>投資経験</td>
+                                <td class="text-center py-4 px-4">25-45歳<br>創造志向</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recommendation Section -->
+    <section id="recommendation" class="py-16 px-4">
+        <div class="container mx-auto">
+            <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center">🎯 あなたにおすすめのバージョンは？</h2>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Recommendation Cards -->
+                <div class="bg-gradient-to-br from-indigo-900/30 to-purple-900/30 rounded-xl p-6 border border-indigo-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-user-clock text-4xl text-indigo-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-indigo-300">初めての健康アプリ</h3>
+                    </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        健康管理を始めたいが、複雑な機能は避けたい。シンプルで確実な方法を求める方。
                     </p>
-                </div>
-                <div class="bg-gray-800 rounded-xl p-4 md:p-6">
-                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-purple-400">ビジネスモデル</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li class="text-sm md:text-base"><i class="fas fa-check text-green-400 mr-2"></i>収益源: Google AdMob広告</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>還元率: 広告収益の60-70%</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>目標利益率: 20-30%</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>最小換金額: 500ポイント（500円相当）</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Features Section -->
-    <section id="features" class="py-16 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center px-4">主要機能</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="feature-card rounded-xl p-6">
-                    <div class="text-3xl mb-4 text-blue-400">
-                        <i class="fas fa-shoe-prints"></i>
+                    <div class="bg-indigo-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-indigo-300">おすすめ: Version 1</div>
+                        <div class="text-xs text-gray-400">従来版 - 確実なポイントシステム</div>
                     </div>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3">歩数トラッキング</h3>
-                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
-                        <li>• HealthKit連携</li>
-                        <li>• リアルタイム同期</li>
-                        <li>• 週間グラフ表示</li>
-                        <li>• オフライン対応</li>
-                    </ul>
+                    <a href="index.html" class="block w-full bg-indigo-600 text-white py-2 rounded-lg text-center text-sm hover:bg-indigo-700 transition">
+                        詳細を見る
+                    </a>
                 </div>
-                <div class="feature-card rounded-xl p-6">
-                    <div class="text-3xl mb-4 text-yellow-400">
-                        <i class="fas fa-coins"></i>
+
+                <div class="bg-gradient-to-br from-pink-900/30 to-orange-900/30 rounded-xl p-6 border border-pink-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-heart text-4xl text-pink-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-pink-300">癒し・エンタメ重視</h3>
                     </div>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3">ポイントシステム</h3>
-                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
-                        <li>• 2000歩 = 1ポイント</li>
-                        <li>• 日次上限: 15ポイント</li>
-                        <li>• 動画広告ボーナス: 3P/回</li>
-                        <li>• 不正検知システム</li>
-                    </ul>
-                </div>
-                <div class="feature-card rounded-xl p-6">
-                    <div class="text-3xl mb-4 text-green-400">
-                        <i class="fas fa-gift"></i>
+                    <p class="text-gray-300 text-sm mb-4">
+                        可愛いものが好き、ゲーム要素を楽しみたい。感情的な繋がりで継続したい方。
+                    </p>
+                    <div class="bg-pink-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-pink-300">おすすめ: Version 2</div>
+                        <div class="text-xs text-gray-400">ペット育成 - 愛着で続ける</div>
                     </div>
-                    <h3 class="text-lg md:text-xl font-semibold mb-3">ポイント換金</h3>
-                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
-                        <li>• Amazonギフト券</li>
-                        <li>• PayPay（将来実装）</li>
-                        <li>• 楽天ポイント（将来実装）</li>
-                        <li>• 1ポイント = 1円相当</li>
-                    </ul>
+                    <a href="index-v2.html" class="block w-full bg-pink-600 text-white py-2 rounded-lg text-center text-sm hover:bg-pink-700 transition">
+                        詳細を見る
+                    </a>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- App Design Section -->
-    <section id="app-design" class="py-16 px-4 bg-gray-800/50">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">アプリ設計・画面構成</h2>
-
-            <!-- Screen Flow -->
-            <div class="mb-12">
-                <h3 class="text-2xl font-semibold mb-8 text-center text-purple-400">画面遷移フロー</h3>
-                <div class="flex flex-wrap justify-center items-center gap-4">
-                    <div class="bg-gray-800 rounded-lg px-4 py-2 text-center">
-                        <i class="fas fa-sign-in-alt text-blue-400 mb-2 block text-xl"></i>
-                        <span class="text-sm">ログイン</span>
+                <div class="bg-gradient-to-br from-blue-900/30 to-cyan-900/30 rounded-xl p-6 border border-blue-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-plane text-4xl text-blue-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-blue-300">旅行・学習志向</h3>
                     </div>
-                    <i class="flow-arrow fas fa-arrow-right"></i>
-                    <div class="bg-gray-800 rounded-lg px-4 py-2 text-center">
-                        <i class="fas fa-home text-green-400 mb-2 block text-xl"></i>
-                        <span class="text-sm">ダッシュボード</span>
+                    <p class="text-gray-300 text-sm mb-4">
+                        旅行が好き、新しい文化を学びたい。世界への憧れがある知識欲旺盛な方。
+                    </p>
+                    <div class="bg-blue-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-blue-300">おすすめ: Version 3</div>
+                        <div class="text-xs text-gray-400">世界旅行 - 冒険で稼ぐ</div>
                     </div>
-                    <i class="flow-arrow fas fa-arrow-right"></i>
-                    <div class="bg-gray-800 rounded-lg px-4 py-2 text-center">
-                        <i class="fas fa-coins text-yellow-400 mb-2 block text-xl"></i>
-                        <span class="text-sm">ポイント</span>
+                    <a href="index-v3.html" class="block w-full bg-blue-600 text-white py-2 rounded-lg text-center text-sm hover:bg-blue-700 transition">
+                        詳細を見る
+                    </a>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-900/30 to-emerald-900/30 rounded-xl p-6 border border-green-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-chart-pie text-4xl text-green-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-green-300">投資・分析好き</h3>
                     </div>
-                    <i class="flow-arrow fas fa-arrow-right"></i>
-                    <div class="bg-gray-800 rounded-lg px-4 py-2 text-center">
-                        <i class="fas fa-gift text-purple-400 mb-2 block text-xl"></i>
-                        <span class="text-sm">換金</span>
+                    <p class="text-gray-300 text-sm mb-4">
+                        投資経験がある、数値分析が好き。健康を資産として管理したい合理的な方。
+                    </p>
+                    <div class="bg-green-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-green-300">おすすめ: Version 4</div>
+                        <div class="text-xs text-gray-400">健康投資 - 資産で稼ぐ</div>
                     </div>
+                    <a href="index-v4.html" class="block w-full bg-green-600 text-white py-2 rounded-lg text-center text-sm hover:bg-green-700 transition">
+                        詳細を見る
+                    </a>
                 </div>
-            </div>
 
-            <!-- Interactive App Mockup -->
-            <div class="text-center">
-                <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8 text-purple-400 px-4">インタラクティブモックアップ</h3>
-                <div class="flex justify-center px-4">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <!-- Status Bar -->
-                            <div class="status-bar text-white">
-                                <span>9:41</span>
-                                <span>
-                                    <i class="fas fa-signal"></i>
-                                    <i class="fas fa-wifi"></i>
-                                    <i class="fas fa-battery-three-quarters"></i>
-                                </span>
-                            </div>
-
-                            <!-- Dashboard Screen -->
-                            <div id="dashboard-screen" class="app-screen active">
-                                <div class="text-center mb-6">
-                                    <h2 class="text-xl font-bold text-white mb-2">今日の歩数</h2>
-                                    <div class="text-4xl font-bold text-purple-400 mb-2">8,543</div>
-                                    <div class="text-sm text-gray-400">目標: 10,000歩</div>
-                                </div>
-
-                                <!-- Progress Circle -->
-                                <div class="flex justify-center mb-6">
-                                    <div class="w-32 h-32 rounded-full border-8 border-gray-700 border-t-purple-400 flex items-center justify-center">
-                                        <span class="text-white font-semibold">85%</span>
-                                    </div>
-                                </div>
-
-                                <!-- Stats Cards -->
-                                <div class="grid grid-cols-2 gap-3 mb-6">
-                                    <div class="bg-gray-700 rounded-lg p-3 text-center">
-                                        <div class="text-yellow-400 font-bold">12P</div>
-                                        <div class="text-xs text-gray-400">今日獲得</div>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 text-center">
-                                        <div class="text-green-400 font-bold">327P</div>
-                                        <div class="text-xs text-gray-400">総ポイント</div>
-                                    </div>
-                                </div>
-
-                                <!-- Action Button -->
-                                <div class="text-center mb-6">
-                                    <button class="bg-purple-600 hover:bg-purple-700 text-white px-8 py-3 rounded-full font-semibold">
-                                        <i class="fas fa-play mr-2"></i>動画を見てボーナス
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Points Screen -->
-                            <div id="points-screen" class="app-screen">
-                                <div class="text-center mb-6">
-                                    <h2 class="text-xl font-bold text-white mb-2">ポイント履歴</h2>
-                                    <div class="text-3xl font-bold text-yellow-400 mb-4">327 ポイント</div>
-                                </div>
-
-                                <!-- Point History -->
-                                <div class="space-y-3 mb-6">
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <div>
-                                            <div class="text-white text-sm font-semibold">歩数報酬</div>
-                                            <div class="text-xs text-gray-400">2025/01/15</div>
-                                        </div>
-                                        <div class="text-green-400 font-bold">+12P</div>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <div>
-                                            <div class="text-white text-sm font-semibold">動画視聴</div>
-                                            <div class="text-xs text-gray-400">2025/01/15</div>
-                                        </div>
-                                        <div class="text-green-400 font-bold">+3P</div>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <div>
-                                            <div class="text-white text-sm font-semibold">歩数報酬</div>
-                                            <div class="text-xs text-gray-400">2025/01/14</div>
-                                        </div>
-                                        <div class="text-green-400 font-bold">+15P</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Redeem Screen -->
-                            <div id="redeem-screen" class="app-screen">
-                                <div class="text-center mb-6">
-                                    <h2 class="text-xl font-bold text-white mb-2">ポイント交換</h2>
-                                    <div class="text-lg text-gray-400 mb-4">残高: 327P</div>
-                                </div>
-
-                                <!-- Redeem Options -->
-                                <div class="space-y-3 mb-6">
-                                    <div class="bg-gray-700 rounded-lg p-4 border border-transparent hover:border-purple-400 cursor-pointer">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <i class="fab fa-amazon text-orange-400 text-2xl mr-3"></i>
-                                                <div>
-                                                    <div class="text-white font-semibold">Amazonギフト券</div>
-                                                    <div class="text-xs text-gray-400">500円 = 500P</div>
-                                                </div>
-                                            </div>
-                                            <i class="fas fa-chevron-right text-gray-400"></i>
-                                        </div>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-4 opacity-50">
-                                        <div class="flex items-center justify-between">
-                                            <div class="flex items-center">
-                                                <i class="fas fa-mobile-alt text-green-400 text-2xl mr-3"></i>
-                                                <div>
-                                                    <div class="text-white font-semibold">PayPay</div>
-                                                    <div class="text-xs text-gray-400">近日対応予定</div>
-                                                </div>
-                                            </div>
-                                            <span class="text-xs bg-purple-600 px-2 py-1 rounded">Soon</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Profile Screen -->
-                            <div id="profile-screen" class="app-screen">
-                                <div class="text-center mb-6">
-                                    <div class="w-20 h-20 bg-purple-600 rounded-full mx-auto mb-4 flex items-center justify-center">
-                                        <i class="fas fa-user text-white text-2xl"></i>
-                                    </div>
-                                    <h2 class="text-xl font-bold text-white mb-1">ユーザー太郎</h2>
-                                    <div class="text-sm text-gray-400">レベル 3</div>
-                                </div>
-
-                                <!-- User Stats -->
-                                <div class="grid grid-cols-2 gap-3 mb-6">
-                                    <div class="bg-gray-700 rounded-lg p-3 text-center">
-                                        <div class="text-blue-400 font-bold">156,432</div>
-                                        <div class="text-xs text-gray-400">総歩数</div>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 text-center">
-                                        <div class="text-green-400 font-bold">45日</div>
-                                        <div class="text-xs text-gray-400">連続記録</div>
-                                    </div>
-                                </div>
-
-                                <!-- Settings Menu -->
-                                <div class="space-y-3">
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <span class="text-white">通知設定</span>
-                                        <i class="fas fa-chevron-right text-gray-400"></i>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <span class="text-white">プライバシー</span>
-                                        <i class="fas fa-chevron-right text-gray-400"></i>
-                                    </div>
-                                    <div class="bg-gray-700 rounded-lg p-3 flex justify-between items-center">
-                                        <span class="text-white">ヘルプ</span>
-                                        <i class="fas fa-chevron-right text-gray-400"></i>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Bottom Navigation -->
-                            <div class="bottom-nav">
-                                <div class="nav-item active" onclick="showScreen('dashboard-screen', this)">
-                                    <i class="fas fa-home"></i>
-                                    <span>ホーム</span>
-                                </div>
-                                <div class="nav-item" onclick="showScreen('points-screen', this)">
-                                    <i class="fas fa-coins"></i>
-                                    <span>ポイント</span>
-                                </div>
-                                <div class="nav-item" onclick="showScreen('redeem-screen', this)">
-                                    <i class="fas fa-gift"></i>
-                                    <span>交換</span>
-                                </div>
-                                <div class="nav-item" onclick="showScreen('profile-screen', this)">
-                                    <i class="fas fa-user"></i>
-                                    <span>プロフィール</span>
-                                </div>
-                            </div>
-                        </div>
+                <div class="bg-gradient-to-br from-amber-900/30 to-orange-900/30 rounded-xl p-6 border border-amber-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-palette text-4xl text-amber-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-amber-300">創造・経営志向</h3>
                     </div>
-                </div>
-                <p class="mt-4 text-gray-400 text-sm">タブをクリックして画面を切り替えられます</p>
-            </div>
-
-            <!-- Screen Information -->
-            <div class="mt-16 grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">画面構成</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>
-                            <strong class="text-blue-400">ダッシュボード画面</strong>
-                            <div class="text-sm text-gray-400">今日の歩数、進捗円グラフ、獲得ポイント表示</div>
-                        </li>
-                        <li>
-                            <strong class="text-yellow-400">ポイント画面</strong>
-                            <div class="text-sm text-gray-400">ポイント残高、獲得履歴、フィルター機能</div>
-                        </li>
-                        <li>
-                            <strong class="text-green-400">交換画面</strong>
-                            <div class="text-sm text-gray-400">換金オプション一覧、申請フォーム</div>
-                        </li>
-                        <li>
-                            <strong class="text-purple-400">プロフィール画面</strong>
-                            <div class="text-sm text-gray-400">ユーザー情報、統計、設定メニュー</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">UI/UX設計指針</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>
-                            <strong class="text-white">ダークテーマ</strong>
-                            <div class="text-sm text-gray-400">目に優しく、バッテリー消費を抑制</div>
-                        </li>
-                        <li>
-                            <strong class="text-white">直感的ナビゲーション</strong>
-                            <div class="text-sm text-gray-400">タブベースの分かりやすい画面遷移</div>
-                        </li>
-                        <li>
-                            <strong class="text-white">視覚的フィードバック</strong>
-                            <div class="text-sm text-gray-400">進捗円グラフ、カラフルなアイコン</div>
-                        </li>
-                        <li>
-                            <strong class="text-white">ガミフィケーション</strong>
-                            <div class="text-sm text-gray-400">レベルシステム、連続記録表示</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Tech Stack Section -->
-    <section id="tech" class="py-16 px-4 bg-gray-800/50">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">技術スタック</h2>
-
-            <!-- Tabs -->
-            <div class="flex flex-wrap justify-center mb-8 gap-2">
-                <button onclick="showTab('frontend')" class="tab-button px-6 py-2 bg-purple-600 text-white rounded-lg" data-tab="frontend">
-                    フロントエンド
-                </button>
-                <button onclick="showTab('backend')" class="tab-button px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600" data-tab="backend">
-                    バックエンド
-                </button>
-                <button onclick="showTab('infrastructure')" class="tab-button px-6 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-600" data-tab="infrastructure">
-                    インフラ
-                </button>
-            </div>
-
-            <!-- Tab Contents -->
-            <div id="frontend" class="tab-content active">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">フロントエンド技術</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold mb-2">Framework & Language</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fab fa-react text-blue-400 mr-2"></i>Expo SDK 50+</li>
-                                <li><i class="fas fa-code text-blue-500 mr-2"></i>TypeScript 5.0+</li>
-                                <li><i class="fas fa-mobile-alt text-gray-400 mr-2"></i>React Native</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Libraries</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fas fa-database text-green-400 mr-2"></i>Redux Toolkit / Zustand</li>
-                                <li><i class="fas fa-route text-purple-400 mr-2"></i>React Navigation 6</li>
-                                <li><i class="fas fa-paint-brush text-pink-400 mr-2"></i>NativeBase UI</li>
-                            </ul>
-                        </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        物づくりが好き、長期的な計画を立てるのが得意。自分だけの世界を創りたい方。
+                    </p>
+                    <div class="bg-amber-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-amber-300">おすすめ: Version 5</div>
+                        <div class="text-xs text-gray-400">街づくり - 創造で稼ぐ</div>
                     </div>
+                    <a href="index-v5.html" class="block w-full bg-amber-600 text-white py-2 rounded-lg text-center text-sm hover:bg-amber-700 transition">
+                        詳細を見る
+                    </a>
                 </div>
-            </div>
 
-            <div id="backend" class="tab-content">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">バックエンド技術</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold mb-2">Runtime & Database</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fas fa-server text-green-400 mr-2"></i>Vercel Edge Functions</li>
-                                <li><i class="fas fa-database text-blue-400 mr-2"></i>Turso (LibSQL/SQLite)</li>
-                                <li><i class="fas fa-cogs text-purple-400 mr-2"></i>Drizzle ORM</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Services</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fas fa-key text-yellow-400 mr-2"></i>JWT Authentication</li>
-                                <li><i class="fas fa-ad text-green-400 mr-2"></i>Google AdMob</li>
-                                <li><i class="fas fa-chart-bar text-blue-400 mr-2"></i>Analytics</li>
-                            </ul>
-                        </div>
+                <!-- Ultimate Choice -->
+                <div class="bg-gradient-to-br from-purple-900/30 to-pink-900/30 rounded-xl p-6 border border-purple-500/30">
+                    <div class="text-center mb-4">
+                        <i class="fas fa-crown text-4xl text-purple-400 mb-4"></i>
+                        <h3 class="text-xl font-bold text-purple-300">最高継続率重視</h3>
                     </div>
-                </div>
-            </div>
-
-            <div id="infrastructure" class="tab-content">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">インフラストラクチャ</h3>
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <h4 class="font-semibold mb-2">Hosting & Deployment</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fas fa-cloud text-blue-400 mr-2"></i>Vercel (Backend)</li>
-                                <li><i class="fas fa-mobile text-green-400 mr-2"></i>App Store (iOS)</li>
-                                <li><i class="fas fa-code-branch text-purple-400 mr-2"></i>GitHub Actions (CI/CD)</li>
-                            </ul>
-                        </div>
-                        <div>
-                            <h4 class="font-semibold mb-2">Monitoring</h4>
-                            <ul class="space-y-2 text-gray-300">
-                                <li><i class="fas fa-bug text-red-400 mr-2"></i>Sentry (Error Tracking)</li>
-                                <li><i class="fas fa-chart-line text-yellow-400 mr-2"></i>Vercel Analytics</li>
-                                <li><i class="fas fa-shield-alt text-green-400 mr-2"></i>Security Monitoring</li>
-                            </ul>
-                        </div>
+                    <p class="text-gray-300 text-sm mb-4">
+                        どれが良いか迷っている。最も継続しやすく、革新的なアプローチを求める方。
+                    </p>
+                    <div class="bg-purple-900/30 rounded-lg p-3 mb-4">
+                        <div class="text-sm font-semibold text-purple-300">イチオシ: Version 2</div>
+                        <div class="text-xs text-gray-400">ペット育成 - 実証済み200%継続率</div>
                     </div>
+                    <a href="index-v2.html" class="block w-full bg-purple-600 text-white py-2 rounded-lg text-center text-sm hover:bg-purple-700 transition">
+                        詳細を見る
+                    </a>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Revenue Plan Section -->
-    <section id="revenue" class="py-16 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">収益計画</h2>
-
-            <div class="grid md:grid-cols-2 gap-8 mb-8">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">広告収益予測</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">バナー広告 (eCPM)</span>
-                            <span class="text-green-400">50-150円</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">動画広告 (eCPM)</span>
-                            <span class="text-green-400">1,000-3,000円</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">1日あたり収益/ユーザー</span>
-                            <span class="text-yellow-400 font-semibold">約7-10円</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">コスト構造</h3>
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">ポイント還元率</span>
-                            <span class="text-orange-400">収益の55%</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">運営費（サーバー等）</span>
-                            <span class="text-orange-400">月額1万円</span>
-                        </div>
-                        <div class="flex justify-between">
-                            <span class="text-gray-400">目標利益率</span>
-                            <span class="text-green-400 font-semibold">20-30%</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Revenue Projection Table -->
-            <div class="bg-gray-800 rounded-xl p-6 overflow-x-auto">
-                <h3 class="text-xl font-semibold mb-4 text-purple-400">月次成長予測（1年間）</h3>
-                <table class="w-full text-sm">
-                    <thead>
-                        <tr class="border-b border-gray-700">
-                            <th class="text-left py-2">月</th>
-                            <th class="text-right py-2">MAU</th>
-                            <th class="text-right py-2">DAU</th>
-                            <th class="text-right py-2">広告収益</th>
-                            <th class="text-right py-2">純利益</th>
-                        </tr>
-                    </thead>
-                    <tbody class="text-gray-300">
-                        <tr class="border-b border-gray-700/50">
-                            <td class="py-2">1ヶ月目</td>
-                            <td class="text-right">500</td>
-                            <td class="text-right">150</td>
-                            <td class="text-right text-green-400">¥31,500</td>
-                            <td class="text-right text-yellow-400">¥1,750</td>
-                        </tr>
-                        <tr class="border-b border-gray-700/50">
-                            <td class="py-2">3ヶ月目</td>
-                            <td class="text-right">2,000</td>
-                            <td class="text-right">600</td>
-                            <td class="text-right text-green-400">¥126,000</td>
-                            <td class="text-right text-yellow-400">¥12,000</td>
-                        </tr>
-                        <tr class="border-b border-gray-700/50">
-                            <td class="py-2">6ヶ月目</td>
-                            <td class="text-right">7,500</td>
-                            <td class="text-right">2,250</td>
-                            <td class="text-right text-green-400">¥472,500</td>
-                            <td class="text-right text-yellow-400">¥71,250</td>
-                        </tr>
-                        <tr class="border-b border-gray-700/50">
-                            <td class="py-2">12ヶ月目</td>
-                            <td class="text-right">28,000</td>
-                            <td class="text-right">8,400</td>
-                            <td class="text-right text-green-400">¥1,764,000</td>
-                            <td class="text-right text-yellow-400">¥288,000</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mt-4 text-center">
-                    <span class="text-2xl font-bold gradient-text">年間総利益: ¥1,271,750</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Roadmap Section -->
-    <section id="roadmap" class="py-16 px-4 bg-gray-800/50">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">開発ロードマップ</h2>
-
-            <div class="relative">
-                <!-- Timeline -->
-                <div class="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-purple-600"></div>
-
-                <!-- Phase 1 -->
-                <div class="flex items-center mb-12">
-                    <div class="w-1/2 text-right pr-8">
-                        <h3 class="text-xl font-semibold text-purple-400">Phase 1: MVP開発</h3>
-                        <p class="text-gray-400">2025年9月 - 11月</p>
-                        <ul class="text-sm text-gray-300 mt-2">
-                            <li>環境構築・UI/UXデザイン</li>
-                            <li>認証・歩数トラッキング実装</li>
-                            <li>ポイントシステム構築</li>
-                            <li>広告統合・基本的な換金機能</li>
-                        </ul>
-                    </div>
-                    <div class="w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center z-10 relative">
-                        <i class="fas fa-rocket text-white"></i>
-                    </div>
-                    <div class="w-1/2 pl-8"></div>
-                </div>
-
-                <!-- Phase 2 -->
-                <div class="flex items-center mb-12">
-                    <div class="w-1/2"></div>
-                    <div class="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center z-10 relative">
-                        <i class="fas fa-users text-white"></i>
-                    </div>
-                    <div class="w-1/2 pl-8">
-                        <h3 class="text-xl font-semibold text-blue-400">Phase 2: 機能拡張</h3>
-                        <p class="text-gray-400">2025年11月 - 12月</p>
-                        <ul class="text-sm text-gray-300 mt-2">
-                            <li>ソーシャル機能（ランキング等）</li>
-                            <li>追加換金オプション</li>
-                            <li>パフォーマンス最適化</li>
-                            <li>A/Bテスト実装</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Phase 3 -->
-                <div class="flex items-center">
-                    <div class="w-1/2 text-right pr-8">
-                        <h3 class="text-xl font-semibold text-green-400">Phase 3: リリース</h3>
-                        <p class="text-gray-400">2026年1月〜</p>
-                        <ul class="text-sm text-gray-300 mt-2">
-                            <li>App Store申請・公開</li>
-                            <li>マーケティング開始</li>
-                            <li>継続的な改善・機能追加</li>
-                            <li>ユーザーフィードバック対応</li>
-                        </ul>
-                    </div>
-                    <div class="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center z-10 relative">
-                        <i class="fas fa-flag-checkered text-white"></i>
-                    </div>
-                    <div class="w-1/2 pl-8"></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Database Design Section -->
-    <section id="database" class="py-16 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">データベース設計</h2>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <!-- Turso Overview -->
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">Turso Database</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>LibSQL (SQLiteベース)</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>エッジロケーション30+箇所</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>自動レプリケーション</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>無料枠: 8GB, 10億行読み取り/月</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>Vercel Edge Functions対応</li>
-                    </ul>
-                </div>
-
-                <!-- Main Tables -->
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">主要テーブル</h3>
-                    <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-table text-blue-400 mr-2"></i>users - ユーザー情報</li>
-                        <li><i class="fas fa-table text-blue-400 mr-2"></i>daily_steps - 日次歩数データ</li>
-                        <li><i class="fas fa-table text-blue-400 mr-2"></i>point_transactions - ポイント履歴</li>
-                        <li><i class="fas fa-table text-blue-400 mr-2"></i>redemptions - 換金申請</li>
-                        <li><i class="fas fa-table text-blue-400 mr-2"></i>ad_views - 広告視聴記録</li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- Schema Example -->
-            <div class="mt-8 bg-gray-800 rounded-xl p-6">
-                <h3 class="text-xl font-semibold mb-4 text-purple-400">スキーマ例: users テーブル</h3>
-                <pre class="bg-gray-900 p-4 rounded-lg overflow-x-auto">
-<code class="text-sm text-gray-300">CREATE TABLE users (
-  id TEXT PRIMARY KEY DEFAULT (lower(hex(randomblob(16)))),
-  email TEXT UNIQUE NOT NULL,
-  password_hash TEXT NOT NULL,
-  display_name TEXT NOT NULL,
-  total_points INTEGER DEFAULT 0,
-  lifetime_steps INTEGER DEFAULT 0,
-  status TEXT DEFAULT 'active',
-  created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-  updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
-);</code></pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- KPI Section -->
-    <section class="py-16 px-4 bg-gray-800/50">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">重要指標 (KPI)</h2>
-
-            <div class="grid md:grid-cols-4 gap-6">
-                <div class="bg-gradient-to-br from-purple-600 to-purple-800 rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold mb-2">30%</div>
-                    <div class="text-sm">DAU/MAU比率目標</div>
-                </div>
-                <div class="bg-gradient-to-br from-blue-600 to-blue-800 rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold mb-2">40%</div>
-                    <div class="text-sm">D1リテンション目標</div>
-                </div>
-                <div class="bg-gradient-to-br from-green-600 to-green-800 rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold mb-2">¥200</div>
-                    <div class="text-sm">月間ARPU目標</div>
-                </div>
-                <div class="bg-gradient-to-br from-yellow-600 to-yellow-800 rounded-xl p-6 text-center">
-                    <div class="text-3xl font-bold mb-2">12.0</div>
-                    <div class="text-sm">LTV/CAC比率</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Risk Management -->
-    <section class="py-16 px-4">
-        <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">リスク管理</h2>
-
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-red-400">技術的リスク</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>
-                            <div class="font-semibold">HealthKit API制限</div>
-                            <div class="text-sm text-gray-400">→ 代替データソースの検討</div>
-                        </li>
-                        <li>
-                            <div class="font-semibold">広告収益の変動</div>
-                            <div class="text-sm text-gray-400">→ 複数広告ネットワーク対応</div>
-                        </li>
-                        <li>
-                            <div class="font-semibold">不正利用</div>
-                            <div class="text-sm text-gray-400">→ 異常検知システム実装</div>
-                        </li>
-                    </ul>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-orange-400">ビジネスリスク</h3>
-                    <ul class="space-y-3 text-gray-300">
-                        <li>
-                            <div class="font-semibold">ユーザー獲得コスト</div>
-                            <div class="text-sm text-gray-400">→ オーガニック成長重視</div>
-                        </li>
-                        <li>
-                            <div class="font-semibold">競合アプリ参入</div>
-                            <div class="text-sm text-gray-400">→ 差別化機能の開発</div>
-                        </li>
-                        <li>
-                            <div class="font-semibold">法規制変更</div>
-                            <div class="text-sm text-gray-400">→ 定期的な法務確認</div>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Call to Action -->
-    <section class="py-16 px-4 bg-gradient-to-r from-purple-900 to-blue-900">
-        <div class="container mx-auto text-center">
-            <h2 class="text-3xl font-bold mb-4">Walk2Point</h2>
-            <p class="text-xl mb-8 text-gray-300">歩くことを、もっと楽しく、もっと価値あるものに</p>
-            <div class="flex justify-center space-x-4">
-                <a href="https://github.com/yourusername/walk2point" class="bg-gray-800 hover:bg-gray-700 px-8 py-3 rounded-lg transition">
-                    <i class="fab fa-github mr-2"></i>GitHub
-                </a>
-                <button class="bg-purple-600 hover:bg-purple-700 px-8 py-3 rounded-lg transition">
-                    <i class="fas fa-envelope mr-2"></i>Contact
-                </button>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-8 px-4 bg-gray-900 border-t border-gray-800">
+    <footer class="bg-gray-800/80 backdrop-blur-sm py-8 px-4 border-t border-gray-700">
         <div class="container mx-auto text-center text-gray-400">
-            <p>&copy; 2025 Walk2Point. All rights reserved.</p>
-            <p class="mt-2 text-sm">Developed by poteeeet</p>
+            <p>&copy; 2025 Walk2Point - All Versions. All rights reserved.</p>
+            <p class="mt-2 text-sm">5つの革新的アプローチで健康習慣を変革</p>
         </div>
     </footer>
 
@@ -922,40 +626,20 @@
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
 
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
-            });
-
-            // Close mobile menu when clicking on links
-            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
+            if (mobileMenuButton && mobileMenu) {
+                mobileMenuButton.addEventListener('click', function() {
+                    mobileMenu.classList.toggle('hidden');
                 });
-            });
+
+                // Close mobile menu when clicking on links
+                const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+                mobileMenuLinks.forEach(link => {
+                    link.addEventListener('click', function() {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
         });
-
-        // Tab switching function
-        function showTab(tabName) {
-            // Hide all tabs
-            const tabs = document.querySelectorAll('.tab-content');
-            tabs.forEach(tab => tab.classList.remove('active'));
-
-            // Show selected tab
-            document.getElementById(tabName).classList.add('active');
-
-            // Update button styles
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => {
-                if (button.dataset.tab === tabName) {
-                    button.classList.remove('bg-gray-700');
-                    button.classList.add('bg-purple-600');
-                } else {
-                    button.classList.remove('bg-purple-600');
-                    button.classList.add('bg-gray-700');
-                }
-            });
-        }
 
         // Smooth scroll for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -971,39 +655,54 @@
             });
         });
 
-        // App screen switching function
-        function showScreen(screenId, navItem) {
-            // Hide all screens
-            const screens = document.querySelectorAll('.app-screen');
-            screens.forEach(screen => screen.classList.remove('active'));
-
-            // Show selected screen
-            document.getElementById(screenId).classList.add('active');
-
-            // Update nav item styles
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            navItem.classList.add('active');
-        }
-
         // Add animation on scroll
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
+            entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.style.opacity = '1';
                     entry.target.style.transform = 'translateY(0)';
                 }
             });
-        }, {
-            threshold: 0.1
         });
 
-        // Apply observer to all sections
-        document.querySelectorAll('section').forEach((section) => {
+        document.querySelectorAll('section').forEach(section => {
             section.style.opacity = '0';
             section.style.transform = 'translateY(20px)';
-            section.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            section.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
             observer.observe(section);
+        });
+
+        // Version card hover effects
+        document.querySelectorAll('.version-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-8px) scale(1.02)';
+            });
+
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Dynamic stats animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const stats = document.querySelectorAll('.text-2xl.font-bold');
+            stats.forEach((stat, index) => {
+                let counter = 0;
+                const target = stat.textContent;
+                const increment = target === '∞' ? 0 : 1;
+                const duration = 2000;
+
+                if (target !== '∞') {
+                    const timer = setInterval(() => {
+                        counter += increment;
+                        stat.textContent = counter;
+                        if (counter >= parseInt(target)) {
+                            clearInterval(timer);
+                            stat.textContent = target;
+                        }
+                    }, duration / parseInt(target));
+                }
+            });
         });
     </script>
 </body>
