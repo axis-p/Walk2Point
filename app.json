@@ -1,4 +1,4 @@
-{
+0.3{
   "expo": {
     "name": "Walk2Point",
     "slug": "walk2point",
@@ -28,10 +28,8 @@
         "android.permission.BODY_SENSORS"
       ]
     },
-    "web": {
-    },
-    "plugins": [
-    ],
+    "web": {},
+    "plugins": [],
     "extra": {
       "eas": {
         "projectId": "walk2point-project-id"
