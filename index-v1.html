@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Walk2Point - ペットを育ててポイントを貯める健康アプリ</title>
-    <meta name="description" content="歩いて可愛いペットを育て、ペットが稼ぐポイントをAmazonギフト券に交換できる新感覚iOSアプリ">
+    <title>Walk2Point - 歩いてポイントを貯めるフィットネスアプリ</title>
+    <meta name="description" content="日常の歩数をポイントに変換し、Amazonギフト券などのデジタルマネーに換金できるiOSアプリ">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -41,6 +41,13 @@
             position: relative;
             overflow: hidden;
         }
+        @media (max-width: 768px) {
+            .phone-mockup {
+                width: 240px;
+                height: 520px;
+                border: 6px solid #374151;
+            }
+        }
         .phone-screen {
             width: 100%;
             height: 100%;
@@ -72,7 +79,7 @@
         .bottom-nav {
             position: absolute;
             bottom: 20px;
-            left: 20px;p
+            left: 20px;
             right: 20px;
             height: 60px;
             background: rgba(55, 65, 81, 0.9);
@@ -118,16 +125,37 @@
     <nav class="fixed top-0 w-full bg-gray-800/90 backdrop-blur-sm z-50 border-b border-gray-700">
         <div class="container mx-auto px-4 py-4">
             <div class="flex justify-between items-center">
-                <h1 class="text-2xl font-bold gradient-text">Walk2Point</h1>
-                <div class="hidden md:flex space-x-6">
-                    <a href="#overview" class="hover:text-purple-400 transition">概要</a>
-                    <a href="#features" class="hover:text-purple-400 transition">機能</a>
-                    <a href="#app-design" class="hover:text-purple-400 transition">アプリ設計</a>
-                    <a href="#tech" class="hover:text-purple-400 transition">技術仕様</a>
-                    <a href="#revenue" class="hover:text-purple-400 transition">収益計画</a>
-                    <a href="#roadmap" class="hover:text-purple-400 transition">ロードマップ</a>
-                    <a href="#database" class="hover:text-purple-400 transition">DB設計</a>
+                <h1 class="text-xl md:text-2xl font-bold gradient-text">Walk2Point</h1>
+                <div class="hidden md:flex space-x-4 lg:space-x-6 items-center">
+                    <a href="#overview" class="hover:text-purple-400 transition text-sm lg:text-base">概要</a>
+                    <a href="#features" class="hover:text-purple-400 transition text-sm lg:text-base">機能</a>
+                    <a href="#app-design" class="hover:text-purple-400 transition text-sm lg:text-base">アプリ設計</a>
+                    <a href="#tech" class="hover:text-purple-400 transition text-sm lg:text-base">技術仕様</a>
+                    <a href="#revenue" class="hover:text-purple-400 transition text-sm lg:text-base">収益計画</a>
+                    <a href="#roadmap" class="hover:text-purple-400 transition text-sm lg:text-base">ロードマップ</a>
+                    <a href="#database" class="hover:text-purple-400 transition text-sm lg:text-base">DB設計</a>
+                    <a href="index-v2.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 lg:px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm lg:text-base">🐾 ペット版</a>
                 </div>
+                <div class="flex md:hidden items-center space-x-2">
+                    <a href="index-v2.html" class="bg-gradient-to-r from-purple-600 to-blue-600 px-3 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition duration-300 text-sm">🐾</a>
+                    <button id="mobile-menu-button" class="text-gray-300 hover:text-white focus:outline-none focus:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id=\"mobile-menu\" class=\"md:hidden hidden bg-gray-800/95 backdrop-blur-sm border-t border-gray-700\">
+            <div class=\"container mx-auto px-4 py-4 space-y-3\">
+                <a href=\"#overview\" class=\"block hover:text-purple-400 transition py-2\">概要</a>
+                <a href=\"#features\" class=\"block hover:text-purple-400 transition py-2\">機能</a>
+                <a href=\"#app-design\" class=\"block hover:text-purple-400 transition py-2\">アプリ設計</a>
+                <a href=\"#tech\" class=\"block hover:text-purple-400 transition py-2\">技術仕様</a>
+                <a href=\"#revenue\" class=\"block hover:text-purple-400 transition py-2\">収益計画</a>
+                <a href=\"#roadmap\" class=\"block hover:text-purple-400 transition py-2\">ロードマップ</a>
+                <a href=\"#database\" class=\"block hover:text-purple-400 transition py-2\">DB設計</a>
             </div>
         </div>
     </nav>
@@ -135,46 +163,46 @@
     <!-- Hero Section -->
     <section class="pt-24 pb-12 px-4">
         <div class="container mx-auto text-center">
-            <h2 class="text-5xl font-bold mb-6">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">
                 <span class="gradient-text">Walk2Point</span>
             </h2>
-            <p class="text-xl text-gray-400 mb-8">ペットを育てながらポイントを稼ぐ、新しい健康アプリ</p>
-            <div class="flex justify-center space-x-4">
-                <div class="bg-gray-800 rounded-lg px-6 py-3">
-                    <i class="fas fa-paw text-purple-400 mr-2"></i>
-                    ペット育成システム
+            <p class="text-lg md:text-xl text-gray-400 mb-8 px-4">歩いてポイントを貯める、新しいフィットネス体験</p>
+            <div class="flex flex-col sm:flex-row justify-center items-center space-y-3 sm:space-y-0 sm:space-x-4">
+                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
+                    <i class="fas fa-walking text-purple-400 mr-2"></i>
+                    iOS専用アプリ
                 </div>
-                <div class="bg-gray-800 rounded-lg px-6 py-3">
+                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
                     <i class="fas fa-coins text-yellow-400 mr-2"></i>
-                    ペットがポイント生成
+                    ポイント換金可能
                 </div>
-                <div class="bg-gray-800 rounded-lg px-6 py-3">
-                    <i class="fas fa-heart text-red-400 mr-2"></i>
-                    愛着で継続習慣
+                <div class="bg-gray-800 rounded-lg px-4 py-3 text-sm md:text-base">
+                    <i class="fas fa-chart-line text-green-400 mr-2"></i>
+                    広告収益モデル
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Overview Section -->
-    <section id="overview" class="py-16 px-4 bg-gray-800/50">
+    <section id="overview" class="py-12 md:py-16 px-4 bg-gray-800/50">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">プロジェクト概要</h2>
-            <div class="grid md:grid-cols-2 gap-8">
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">コンセプト</h3>
-                    <p class="text-gray-300 leading-relaxed">
-                        歩いて可愛いペットを育て、元気なペットがポイントを稼いでくれる革新的な健康アプリ。
-                        広告を見てエサを取得し、ペットを育てることで自然に健康習慣と収益が両立する新感覚体験。
+            <h2 class="text-2xl md:text-3xl font-bold mb-6 md:mb-8 text-center px-4">プロジェクト概要</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+                <div class="bg-gray-800 rounded-xl p-4 md:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-purple-400">コンセプト</h3>
+                    <p class="text-sm md:text-base text-gray-300 leading-relaxed">
+                        日常の歩数をポイントに変換し、貯まったポイントをAmazonギフト券などのデジタルマネーに換金できるフィットネス連動型ポイントアプリ。
+                        広告収益をユーザーに還元する持続可能なビジネスモデルを採用。
                     </p>
                 </div>
-                <div class="bg-gray-800 rounded-xl p-6">
-                    <h3 class="text-xl font-semibold mb-4 text-purple-400">ビジネスモデル</h3>
+                <div class="bg-gray-800 rounded-xl p-4 md:p-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-3 md:mb-4 text-purple-400">ビジネスモデル</h3>
                     <ul class="space-y-2 text-gray-300">
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>歩数でペットの健康度UP</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>広告視聴でエサを取得</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></i>元気なペットがポイント生成</li>
-                        <li><i class="fas fa-check text-green-400 mr-2"></li>還元率: 広告収益の50%</li>
+                        <li class="text-sm md:text-base"><i class="fas fa-check text-green-400 mr-2"></i>収益源: Google AdMob広告</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>還元率: 広告収益の60-70%</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>目標利益率: 20-30%</li>
+                        <li><i class="fas fa-check text-green-400 mr-2"></i>最小換金額: 500ポイント（500円相当）</li>
                     </ul>
                 </div>
             </div>
@@ -184,14 +212,14 @@
     <!-- Features Section -->
     <section id="features" class="py-16 px-4">
         <div class="container mx-auto">
-            <h2 class="text-3xl font-bold mb-8 text-center">主要機能</h2>
-            <div class="grid md:grid-cols-3 gap-6">
+            <h2 class="text-2xl md:text-3xl font-bold mb-8 text-center px-4">主要機能</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <div class="feature-card rounded-xl p-6">
                     <div class="text-3xl mb-4 text-blue-400">
                         <i class="fas fa-shoe-prints"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">歩数トラッキング</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
+                    <h3 class="text-lg md:text-xl font-semibold mb-3">歩数トラッキング</h3>
+                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
                         <li>• HealthKit連携</li>
                         <li>• リアルタイム同期</li>
                         <li>• 週間グラフ表示</li>
@@ -202,8 +230,8 @@
                     <div class="text-3xl mb-4 text-yellow-400">
                         <i class="fas fa-coins"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">ポイントシステム</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
+                    <h3 class="text-lg md:text-xl font-semibold mb-3">ポイントシステム</h3>
+                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
                         <li>• 2000歩 = 1ポイント</li>
                         <li>• 日次上限: 15ポイント</li>
                         <li>• 動画広告ボーナス: 3P/回</li>
@@ -214,8 +242,8 @@
                     <div class="text-3xl mb-4 text-green-400">
                         <i class="fas fa-gift"></i>
                     </div>
-                    <h3 class="text-xl font-semibold mb-3">ポイント換金</h3>
-                    <ul class="text-gray-400 space-y-1 text-sm">
+                    <h3 class="text-lg md:text-xl font-semibold mb-3">ポイント換金</h3>
+                    <ul class="text-gray-400 space-y-1 text-xs md:text-sm">
                         <li>• Amazonギフト券</li>
                         <li>• PayPay（将来実装）</li>
                         <li>• 楽天ポイント（将来実装）</li>
@@ -259,8 +287,8 @@
 
             <!-- Interactive App Mockup -->
             <div class="text-center">
-                <h3 class="text-2xl font-semibold mb-8 text-purple-400">インタラクティブモックアップ</h3>
-                <div class="flex justify-center">
+                <h3 class="text-xl md:text-2xl font-semibold mb-6 md:mb-8 text-purple-400 px-4">インタラクティブモックアップ</h3>
+                <div class="flex justify-center px-4">
                     <div class="phone-mockup">
                         <div class="phone-screen">
                             <!-- Status Bar -->
@@ -889,6 +917,24 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking on links
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        });
+
         // Tab switching function
         function showTab(tabName) {
             // Hide all tabs
